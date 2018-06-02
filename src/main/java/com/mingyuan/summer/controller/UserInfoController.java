@@ -22,6 +22,12 @@ public class UserInfoController {
     @Autowired
     private UserInfoJpaRepository userInfoJpaRepository;
 
+    /**
+     * 登录操作
+     *
+     * @param loginData 登录信息
+     * @return 返回登录的数据
+     */
     @RequestMapping(value = "/getUser")
     public Map<String, Object> getOne(@RequestBody JSONObject loginData) {
 
