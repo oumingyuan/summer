@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>致远信息</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
+
+
+
+<script>
+
+
+
+	$(document).ready(function() {
+
+		$("#submitLog").click(function() {
+		
+		
+			document.getElementById('submitLog').disabled=true;
+			//$("#submitLog").disabled = true;
+
+			$.post("/newlog/submitLog", {
+				information : $("#logInfo").val(),
+				url : "http://www.runoob.com"
+			},
+				function(data, status) {
+					alert("数据: \n" + data + "\n状态: " + status);
+				});
+			//$("#submitLog").setAttribute("disabled", false);
+		});
+	});
+</script>
+
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<!-- Brand -->
+		<a class="navbar-brand" href="index.html">公司主页</a>
+
+		<!-- Links -->
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="log_query.html">公司日志查询</a>
+			</li>
+
+
+			<!-- Dropdown -->
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> 信息技术 </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" href="#">计算机语言</a> <a
+						class="dropdown-item" href="#">大数据</a> <a class="dropdown-item"
+						href="#">人工智能</a>
+				</div></li>
+		</ul>
+	</nav>
+	<br>
+
+	<div class="container" ng-app="myApp" ng-controller="siteCtrl">
+		<h2 class="text-center">日志查询页面</h2>
+		<table class="table table-dark table-hover">
+
+			<thead>
+				<tr>
+					<th>星期</th>
+					<th>日期</th>
+					<th>姓名</th>
+					<th>状态</th>
+					<!-- 					<th>操作</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in names"
+					ng-class="{
+				'table-success':x.status=='200',
+				'table-danger':x.status=='100',
+				'table-secondary':x.status==mull}">
+
+					<td>{{ x.week}}</td>
+					<td>{{ x.logDate}}</td>
+					<td>{{ x.reporterName }}</td>
+					<td>{{ x.statusName }}</td>
+					<!-- 					<td>{{ x.logweek }}</td> -->
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('siteCtrl', function($scope, $http) {
+			$http.post("/newlog/findall")
+				.then(function(response) {
+	
+	
+					for (i in response.data) {
+	
+						//alert(typeof element);
+	
+						//alert(response.data[i].status)
+	
+						//按钮增加
+						if (response.data[i].status === '200') {
+							response.data[i].logweek = "上周日志查询";
+						} else if (response.data[i].status === '100') {
+							response.data[i].logweek = "本周日志查询";
+						}
+	
+	
+	
+					}
+	
+					document.cookie = "data=" + response.data; //增加值对到cookie，原生js自带的方法。
+	
+					$scope.names = response.data;
+	
+	
+				});
+		});
+	</script>
+
+
+	<div class="container">
+		<br>
+		<h2 class="text-center">请输入未提交状态日志的内容</h2>
+		<form role="form">
+			<div class="form-group">
+				<textarea class="form-control" rows="10" id="logInfo"></textarea>
+			</div>
+		</form>
+
+		<button type="button" class="btn btn-primary" id="submitLog">立即提交日志</button>
+		<button type="button" class="btn btn-primary">周末自动提交日志</button>
+
+
+		<br> <br>
+		<p>关于 提交日志 按钮功能的相关说明：</p>
+		<p>1. 如果你提交了日志，系统会在今天晚上12点帮你把日志提交到公司的系统。</p>
+		<p>2. 如果你在周六和周末忘记提交日志，系统会自动把你保存过的日志在周末晚上12点帮你自动提交。</p>
+		<p>3. 上周的日志没法提交。</p>
+
+
+	</div>
+
+</body>
+</html>

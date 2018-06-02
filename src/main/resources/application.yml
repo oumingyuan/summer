@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/company_log?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    username: root
+    password: new_password
+    driver-class-name: com.mysql.jdbc.Driver
+
+#    spring.jpa.open-in-view to disable this warning
+
+  jpa:
+    open-in-view: true
+
+
+server:
+  port: 8888
+
+

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap 实例</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+    <style>
+
+        input {
+            border: none;
+        }
+
+    </style>
+
+    <script>
+
+        /**
+         * 下面是所使用的全局变量
+         *
+         */
+
+        var info_object;//商品信息列表
+        var id_list = [];//商品信息列表ID
+
+        var company_info_object;//公司信息列表
+
+        /**
+         * 输入框触发操作
+         * 公司信息简化输入
+         *
+         */
+        function get_company_info(node) {
+            debugger;
+            var x = node.value;
+
+            for (var y in company_info_object) {
+                if (x === company_info_object[y].name) {
+                    phone.innerHTML = company_info_object[y].phone1;
+                    address.innerHTML = company_info_object[y].address;
+                }
+
+            }
+
+        }
+
+        /**
+         * 输入框触发操作
+         * 商品信息简化输入
+         *
+         */
+        function myFunction(node) {
+
+            var input_value = node.value;
+
+            var count = 0;
+            var input_value_one;
+            for (n in id_list) {
+
+                id_new = id_list[n].substring(0, input_value.length);
+
+                if (id_new === input_value) {
+
+                    count++;
+                    input_value_one = id_list[n];
+                }
+
+            }
+
+            if (count === 1) {
+
+                node.value = input_value_one;
+
+                node.readOnly = true;
+
+                for (x in info_object) {
+
+                    if (node.value === info_object[x].productId) {
+
+                        node.parentElement.nextElementSibling.innerHTML = info_object[x].barCode;
+                        node.parentElement.nextElementSibling.nextElementSibling.innerHTML = info_object[x].name;
+                        node.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML = info_object[x].standard;
+                    }
+                }
+
+            } else {
+                //查询多条数据，不符合条件
+            }
+
+        }
+
+        /**
+         * 输入框触发操作
+         * 计算商品总数量
+         */
+        function calculation_amount(node) {
+
+            debugger;
+            var unit_price = node.parentElement.previousElementSibling.firstChild.value;
+            var amount = node.value;
+
+
+            node.parentElement.nextElementSibling.innerHTML = (Number(unit_price) * Number(amount)).toFixed(2);
+
+            var total_amount = 0;
+            var total_box = 0;
+
+
+            // total_amount.value = node.parentElement.nextElementSibling.innerHTML;
+
+            var trs = node.parentElement.parentElement.parentElement.rows;
+
+            for (var x in trs) {
+
+                if (x < trs.length - 1) {
+
+                    var y = trs[x].cells[7].innerText;
+                    var z = trs[x].cells[6].firstChild.value;
+
+                    total_amount = total_amount + Number(y);
+                    total_box = total_box + Number(z)
+
+                }
+
+
+            }
+
+            total_amount_td.innerHTML = total_amount.toFixed(2);
+
+            total_box_td.innerHTML = total_box;
+
+
+        }
+
+        /**
+         * 输入框触发操作
+         * 计算商品总价格
+         */
+        function calculation_unit_price(node) {
+
+            debugger;
+            // var unit_price = node.parentElement.previousElementSibling.firstChild.value;
+            // var amount = node.value;
+            var unit_price = node.value;
+            var amount = node.parentElement.nextElementSibling.firstChild.value;
+
+
+            node.parentElement.nextElementSibling.nextElementSibling.innerHTML = (Number(unit_price) * Number(amount)).toFixed(2);
+
+            var total_amount = 0;
+
+
+            // total_amount.value = node.parentElement.nextElementSibling.innerHTML;
+
+            var trs = node.parentElement.parentElement.parentElement.rows;
+
+            for (var x in trs) {
+
+                if (x < trs.length - 1) {
+
+                    var y = trs[x].cells[7].innerText;
+
+                    total_amount = total_amount + Number(y);
+
+                }
+
+
+            }
+
+            total_amount_td.innerHTML = total_amount.toFixed(2);
+
+        }
+
+
+        /**
+         * 输入框触发操作
+         * 保证输入的书小数而且小数点后面是2位
+         */
+        function num(obj) {
+            obj.value = obj.value.replace(/[^\d.]/g, ""); //清除"数字"和"."以外的字符
+            obj.value = obj.value.replace(/^\./g, ""); //验证第一个字符是数字
+            obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个, 清除多余的
+            obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
+        }
+
+
+        /**
+         * AJAX 代码
+         */
+        $(document).ready(function () {
+
+            /**
+             * 鼠标单击操作
+             *
+             * 订单信息插入数据库
+             * 生成PDF文件
+             *
+             */
+            $("#generate_order").click(function () {
+
+                //订单信息的获取
+                var d = {};
+                d.flag = "IN";
+
+                //商家信息
+                d.company_id = purchase_select.value;
+                d.total_number = total_box_td.innerHTML;
+                d.total_price = total_amount_td.innerHTML;
+                d.order_list = [];
+                var trs = order_tbody.rows;
+                for (var x in trs) {
+
+                    if (x < (trs.length - 1)) {
+                        //除去最后一行
+
+                        var tds_map = {};
+                        var tds = trs[x].cells;
+
+                        tds_map.product_id = tds[1].childNodes[0].value;
+                        tds_map.unit_price = tds[5].childNodes[0].value;
+                        tds_map.number = tds[6].childNodes[0].value;
+                        tds_map.total_price = tds[7].innerText;
+
+                        d.order_list.push(tds_map)
+
+                    }
+
+                }
+
+                if (judge_input(d)) {
+                    $.ajax({
+                        url: '/product/insert_order',
+                        type: 'POST', //GET
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(d),
+
+                        success: function (data, textStatus, jqXHR) {
+                            alert("数据保存成功");
+                            window.open("http://localhost:8888/product/downloadPDF");//开始下载PDF
+                        },
+
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                            debugger;
+                            var message = XMLHttpRequest.responseJSON.message;
+
+
+                            alert(message)
+
+                        }
+
+
+                    });
+
+                } else {
+
+
+                }
+
+
+            });
+
+
+            /**
+             * 输入框触发操作
+             * 输入框校验操作
+             * 校验是否输入商品信息
+             * @param d
+             * @returns {boolean}
+             */
+            function judge_input(d) {
+
+                //商家信息校验
+
+
+                if (d.company_id === "请选择购买单位") {
+                    alert("请输入客户信息");
+                    return false;
+                }
+
+
+                //商品信息校验
+                if (d.total_price === "") {
+                    alert("请输入商品信息");
+                    return false;
+                }
+
+
+                return true;
+
+
+            }
+
+
+            /**
+             * 下面的代码会在页面初始化的时候就会执行，主要作用是初始化全局变量
+             *
+             */
+
+
+            /**
+             * 公司信息下拉选初始化
+             * 简化公司信息输入
+             */
+            $.ajax({
+
+
+                url: "/product/get_company_information",
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+
+                success: function (data, textStatus, jqXHR) {
+
+                    var objSelectNow = document.getElementById("purchase_select");
+
+                    var objOption1 = document.createElement("OPTION");
+                    objOption1.text = "请选择购买单位";
+                    objOption1.value = "请选择购买单位";
+                    objSelectNow.options.add(objOption1);
+
+                    company_info_object = data;
+                    for (var x in data) {
+
+                        //初始化下拉选
+                        var objOption = document.createElement("OPTION");
+                        objOption.text = data[x].name;
+                        objOption.value = data[x].name;
+                        objSelectNow.options.add(objOption);
+
+                    }
+
+                }
+
+            });
+
+
+            /**
+             * 商品信息列表初始化
+             * 简化商品输入
+             */
+            $.ajax({
+                url: '/product/query',
+                type: 'POST', //GET
+
+                contentType: "application/json;charset=utf-8",
+
+                // data: JSON.stringify(d),
+
+
+                success: function (data, textStatus, jqXHR) {
+
+
+                    info_object = data;
+                    for (x in data) {
+                        id_list.push(data[x].productId)
+
+                    }
+
+
+                }
+            });
+
+
+        })
+
+
+    </script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <!-- Brand/logo -->
+    <a class="navbar-brand" href="index.html">主页</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="product_add.html">商品新增</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="product_query.html">商品查询</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">商品订单</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="product_order.html">销售单</a>
+                <a class="dropdown-item" href="product_purchase_order.html">订货单</a>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<br>
+
+
+<div class="container">
+    <h2 align="center"><strong>商品销售单</strong></h2>
+    <p><strong>客户信息</strong></p>
+    <table class="table table-bordered">
+
+        <tbody>
+        <tr>
+            <td width="10%"><strong>购买单位：</strong></td>
+            <td width="20%">
+                <select id="purchase_select" onchange="get_company_info(this)">
+
+                </select>
+            </td>
+            <td width="10%"><strong>电话：</strong></td>
+            <td width="20%" id="phone"></td>
+            <td width="10%"><strong>客户地址：</strong></td>
+            <td width="20%" id="address"></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <p><strong>商品信息</strong></p>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>行号</th>
+            <th>货号</th>
+            <th>商品条码</th>
+            <th>商品名称</th>
+            <th>每箱数量</th>
+            <th>销售单价</th>
+            <th>箱数</th>
+            <th>销售金额</th>
+            <th>备注</th>
+        </tr>
+        </thead>
+        <tbody id="order_tbody">
+        <tr>
+            <td>1</td>
+            <td width="5%"><input type="text" oninput="myFunction(this)" style="width:100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td width="5%"><input type="text" onchange="calculation_unit_price(this)" style="width: 100px"
+                                  onkeyup="num(this)"></td>
+            <td width="5%"><input type="text" onchange="calculation_amount(this)" style="width:100px"
+                                  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/">
+            </td>
+            <td></td>
+            <td></td>
+
+
+        </tr>
+        <tr>
+            <td>2</td>
+            <td width="5%"><input type="text" oninput="myFunction(this)" style="width:100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td width="5%"><input type="text" onchange="calculation_unit_price(this)" style="width: 100px"
+                                  onkeyup="num(this)"></td>
+            <td width="5%"><input type="text" onchange="calculation_amount(this)" style="width:100px"
+                                  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/">
+            </td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td>3</td>
+            <td width="5%"><input type="text" oninput="myFunction(this)" style="width:100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td width="5%"><input type="text" onchange="calculation_unit_price(this)" style="width: 100px"
+                                  onkeyup="num(this)"></td>
+            <td width="5%"><input type="text" onchange="calculation_amount(this)" style="width:100px"
+                                  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/">
+            </td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td>4</td>
+            <td width="5%"><input type="text" oninput="myFunction(this)" style="width:100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td width="5%"><input type="text" onchange="calculation_unit_price(this)" style="width: 100px"
+                                  onkeyup="num(this)"></td>
+            <td width="5%"><input type="text" onchange="calculation_amount(this)" style="width:100px"
+                                  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/">
+            </td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td>5</td>
+            <td width="5%"><input type="text" oninput="myFunction(this)" style="width:100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td width="5%"><input type="text" onchange="calculation_unit_price(this)" style="width: 100px"
+                                  onkeyup="num(this)"></td>
+            <td width="5%"><input type="text" onchange="calculation_amount(this)" style="width:100px"
+                                  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/">
+            </td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td>6</td>
+            <td width="5%"><input type="text" oninput="myFunction(this)" style="width:100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td width="5%"><input type="text" onchange="calculation_unit_price(this)" style="width: 100px"
+                                  onkeyup="num(this)"></td>
+            <td width="5%"><input type="text" onchange="calculation_amount(this)" style="width:100px"
+                                  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/">
+            </td>
+            <td></td>
+            <td></td>
+
+
+        </tr>
+        <tr>
+            <td>7</td>
+            <td width="5%"><input type="text" oninput="myFunction(this)" style="width:100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td width="5%"><input type="text" onchange="calculation_unit_price(this)" style="width: 100px"
+                                  onkeyup="num(this)"></td>
+            <td width="5%"><input type="text" onchange="calculation_amount(this)" style="width:100px"
+                                  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/">
+            </td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td>8</td>
+            <td width="5%"><input type="text" oninput="myFunction(this)" style="width:100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td width="5%"><input type="text" onchange="calculation_unit_price(this)" style="width: 100px"
+                                  onkeyup="num(this)"></td>
+            <td width="5%"><input type="text" onchange="calculation_amount(this)" style="width:100px"
+                                  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/">
+            </td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td>9</td>
+            <td width="5%"><input type="text" oninput="myFunction(this)" style="width:100px"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td width="5%"><input type="text" onchange="calculation_unit_price(this)" style="width: 100px"
+                                  onkeyup="num(this)"></td>
+            <td width="5%"><input type="text" onchange="calculation_amount(this)" style="width:100px"
+                                  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/">
+            </td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td>总计</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="total_box_td"></td>
+            <td id="total_amount_td"></td>
+            <td></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="container">
+
+    <button type="button" class="btn btn-primary" id="generate_order">生成销售单PDF</button>
+
+</div>
+
+
+</body>
+</html>
