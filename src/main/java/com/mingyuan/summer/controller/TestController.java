@@ -1,6 +1,9 @@
 package com.mingyuan.summer.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mingyuan.summer.domain.bean.PathUtil;
+import com.mingyuan.summer.domain.bean.Wisely2Settings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +17,31 @@ import java.util.Map;
 
 @RestController
 public class TestController {
+
+
+    @Autowired
+    Wisely2Settings wisely2Settings;
+
+    @Autowired
+    PathUtil pathUtil;
+
+
+    @RequestMapping(value = "/test_config")
+    public void test_config() {
+
+//        System.out.println("lala");
+//        System.out.println("wisely2.name = " + wisely2Settings.getName());
+//        System.out.println("wisely2.gender = " + wisely2Settings.getGender());
+//        System.out.println("wisely2.age = " + wisely2Settings.getAge());
+
+        System.out.println(pathUtil.getPdfPath());
+
+//        System.out.println(pathUtil.getTestPdfPath());
+
+        System.out.println(pathUtil.getPdfPathTemplate());
+
+
+    }
 
 
     @RequestMapping(value = "/get")

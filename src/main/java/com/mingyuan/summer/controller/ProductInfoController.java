@@ -6,10 +6,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.mingyuan.summer.domain.CompanyInformation;
 import com.mingyuan.summer.domain.Order;
 import com.mingyuan.summer.domain.ProductInfo;
+import com.mingyuan.summer.domain.bean.PathUtil;
 import com.mingyuan.summer.mapper.CompanyInformationRepository;
 import com.mingyuan.summer.mapper.ProductInfoJpaRepository;
 import com.mingyuan.summer.service.OrderProductLinkService;
-import com.mingyuan.summer.tool.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +37,9 @@ public class ProductInfoController {
 
     @Autowired
     private OrderProductLinkService OrderProductLinkService;
+
+    @Autowired
+    private PathUtil pathUtil;
 
 
     /**
@@ -131,6 +134,8 @@ public class ProductInfoController {
 
         String orderId = flag + id;//两个表的关联字段
 
+        System.out.println("##############" + orderId);
+
         /*
          * 订单的商家信息插入数据库
          */
@@ -161,8 +166,23 @@ public class ProductInfoController {
 
         Jedis jedis = new Jedis("localhost");
 
+
         //设置 redis 字符串数据
-        jedis.set("orderId", orderId);
+
+
+        try {
+            jedis.set("orderId", orderId);
+
+            System.out.println("#################  设置后的 缓存" + jedis.get("orderId"));
+
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            throw new Exception("请启动本地redis");
+
+        }
 
 
         return resultMap;
@@ -183,7 +203,7 @@ public class ProductInfoController {
 
         //设置文件路径
 //        String realPath = "D:\\my_pdf\\";
-        String realPath = PropertiesUtil.getProperties("pdf_path");
+        String realPath = pathUtil.getPdfPath();
         File file = new File(realPath, fileName);
 
         if (file.exists()) {

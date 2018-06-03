@@ -3,6 +3,9 @@ package com.mingyuan.summer.tool;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.*;
+import com.mingyuan.summer.domain.bean.PathUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -10,11 +13,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+@Service
 public class GeneratePDF {
+
+    @Autowired
+    private PathUtil pathUtil;
 
 
     // 利用模板生成pdf
-    public static void fillTemplate(List<String> str, String orderId) {
+    public void fillTemplate(List<String> str, String orderId) {
 
 
         BaseFont baseFont = null;
@@ -27,10 +34,10 @@ public class GeneratePDF {
 
 
         // 模板路径
-        String templatePath = PropertiesUtil.getProperties("pdf_path_template") + "temp.pdf";
+        String templatePath = pathUtil.getPdfPathTemplate() + "temp.pdf";
 
 
-        String file_path = PropertiesUtil.getProperties("pdf_path");
+        String file_path = pathUtil.getPdfPath();
         File file = new File(file_path);
         if (!file.exists()) {
             boolean mkdir = file.mkdir();

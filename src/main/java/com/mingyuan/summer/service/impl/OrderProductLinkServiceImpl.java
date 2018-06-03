@@ -41,6 +41,9 @@ public class OrderProductLinkServiceImpl implements OrderProductLinkService {
     @Autowired
     private CompanyInformationRepository companyInformationRepository;
 
+    @Autowired
+    private GeneratePDF generatePDF;
+
 
     /**
      * @param order_list 产品信息列表
@@ -135,7 +138,7 @@ public class OrderProductLinkServiceImpl implements OrderProductLinkService {
         datas.add(String.valueOf(order.get().getTotalPrice()));
         datas.add("");
 
-        GeneratePDF.fillTemplate(datas, orderId);
+        generatePDF.fillTemplate(datas, orderId);
 
     }
 
