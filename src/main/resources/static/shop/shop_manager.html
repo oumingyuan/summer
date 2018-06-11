@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap 实例</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <script>
+
+        /**
+         * 实现第二次点击事件取消选择
+         */
+        $(function () {
+
+            $('input:radio').click(function () {
+                //alert(this.checked);
+                //
+                var $radio = $(this);
+                // if this was previously checked
+                if ($radio.data('waschecked') === true) {
+                    $radio.prop('checked', false);
+                    $radio.data('waschecked', false);
+                } else {
+                    $radio.prop('checked', true);
+                    $radio.data('waschecked', true);
+                }
+            });
+
+
+            $("#edit").attr('disabled',"true");
+
+            //$(this).attr('disabled',"true");
+
+        });
+
+
+    </script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <!-- Brand/logo -->
+    <a class="navbar-brand" href="index.html">主页</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+
+        <!--
+        <li class="nav-item">
+            <a class="nav-link" href="product_add.html">商品新增</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="product_query.html">商品查询</a>
+        </li>
+
+        -->
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">商品管理</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="../product_query.html">商品查询</a>
+                <a class="dropdown-item" href="../product_add.html">商品新增</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">商品订单</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="../product_order.html">销售单</a>
+                <a class="dropdown-item" href="../product_purchase_order.html">订货单</a>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<br><br>
+
+<div class="container">
+
+    <!--
+    <h2>鼠标悬停效果 - 黑色背景表格</h2>
+    <p>联合使用 .table-dark 和 .table-hover 类可以设置黑色背景表格的鼠标悬停效果：</p>
+-->
+
+
+    <h2 align="center"><strong>商店信息管理</strong></h2>
+    <div class="btn-group">
+        <button type="button" class="btn btn-secondary" id="add">增加</button>
+        <button type="button" class="btn btn-secondary" id="edit">编辑</button>
+        <button type="button" class="btn btn-secondary" id="delete">删除</button>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>单选按钮</th>
+            <th>商店序号</th>
+            <th>商店名称</th>
+            <th>商店地址</th>
+            <th>商店经理</th>
+            <th>联系电话</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input type="radio"></td>
+            <td>1</td>
+            <td>上海阳光</td>
+            <td>上海市浦东新区</td>
+            <td>欧明亮</td>
+            <td>15609682037</td>
+
+        </tr>
+        <tr>
+            <td><input type="radio"></td>
+            <td>2</td>
+            <td>上海阳光</td>
+            <td>上海市浦东新区</td>
+            <td>欧明亮</td>
+            <td>15609682037</td>
+        </tr>
+        <tr>
+            <td><input type="radio"></td>
+            <td>3</td>
+            <td>上海阳光</td>
+            <td>上海市浦东新区</td>
+            <td>欧明亮</td>
+            <td>15609682037</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

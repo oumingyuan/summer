@@ -11,7 +11,7 @@ public class RedisJava {
         //查看服务是否运行
         System.out.println("服务正在运行: " + jedis.ping());
 
-        jedis.set("orderId", "1");
+//        jedis.set("orderId", "1");
 
         System.out.println(jedis.get("orderId"));
     }

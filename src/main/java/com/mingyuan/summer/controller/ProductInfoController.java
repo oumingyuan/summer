@@ -8,6 +8,7 @@ import com.mingyuan.summer.domain.Order;
 import com.mingyuan.summer.domain.ProductInfo;
 import com.mingyuan.summer.domain.bean.PathUtil;
 import com.mingyuan.summer.mapper.CompanyInformationRepository;
+import com.mingyuan.summer.mapper.OrderJpaRepository;
 import com.mingyuan.summer.mapper.ProductInfoJpaRepository;
 import com.mingyuan.summer.service.OrderProductLinkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.math.BigDecimal;
+import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -40,6 +42,9 @@ public class ProductInfoController {
 
     @Autowired
     private PathUtil pathUtil;
+
+    @Autowired
+    private OrderJpaRepository orderJpaRepository;
 
 
     /**
@@ -164,6 +169,19 @@ public class ProductInfoController {
 
         resultMap.put("orderId", orderId);
 
+
+        String osName = System.getProperties().getProperty("os.name");
+
+        if ("Windows 10".equals(osName)) {
+            resultMap.put("ip", InetAddress.getLocalHost().getHostAddress());
+        } else {
+
+            resultMap.put("ip", "120.79.223.29");
+
+        }
+
+
+
         Jedis jedis = new Jedis("localhost");
 
 
@@ -198,6 +216,9 @@ public class ProductInfoController {
         Jedis jedis = new Jedis("localhost");
 
         String orderId = jedis.get("orderId");
+
+
+//        String orderId = orderJpaRepository.get_max_id();
 
         String fileName = orderId + ".pdf";// 设置文件名，根据业务需要替换成要下载的文件名
 
