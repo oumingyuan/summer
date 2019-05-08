@@ -1,0 +1,75 @@
+9:01:37: Executing task 'bootRun'...
+
+> Task :compileJava
+> Task :processResources UP-TO-DATE
+> Task :classes
+
+> Task :bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.0.1.RELEASE)
+
+2019-05-08 09:01:48.528  INFO 10780 --- [           main] com.mingyuan.summer.SummerApplication    : Starting SummerApplication on DESKTOP-6G0PKE8 with PID 10780 (E:\Local\summer\build\classes\java\main started by Administrator in E:\Local\summer)
+2019-05-08 09:01:48.531  INFO 10780 --- [           main] com.mingyuan.summer.SummerApplication    : No active profile set, falling back to default profiles: default
+2019-05-08 09:01:48.574  INFO 10780 --- [           main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1725dc0f: startup date [Wed May 08 09:01:48 CST 2019]; root of context hierarchy
+2019-05-08 09:01:49.263  INFO 10780 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-08 09:01:49.362  INFO 10780 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-08 09:01:49.386  INFO 10780 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.mingyuan.summer.mapper.CompanyInformationRepository.
+2019-05-08 09:01:49.388  INFO 10780 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.mingyuan.summer.mapper.OrderJpaRepository.
+2019-05-08 09:01:49.389  INFO 10780 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.mingyuan.summer.mapper.OrderProductLinkJpaRepository.
+2019-05-08 09:01:49.389  INFO 10780 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.mingyuan.summer.mapper.ProductInfoJpaRepository.
+2019-05-08 09:01:49.390  INFO 10780 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.mingyuan.summer.mapper.UserInfoJpaRepository.
+2019-05-08 09:01:49.789  INFO 10780 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$8d2c213d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 09:01:50.423  INFO 10780 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2019-05-08 09:01:50.493  INFO 10780 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-05-08 09:01:50.494  INFO 10780 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.29
+2019-05-08 09:01:50.503  INFO 10780 --- [ost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_211\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\ProgramData\chocolatey\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk1.8.0_211\bin;C:\Program Files\nodejs\;D:\Anaconda3;D:\Anaconda3\Library\mingw-w64\bin;D:\Anaconda3\Library\usr\bin;D:\Anaconda3\Library\bin;D:\Anaconda3\Scripts;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Users\Administrator\AppData\Roaming\npm;.]
+2019-05-08 09:01:50.627  INFO 10780 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-05-08 09:01:50.627  INFO 10780 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2055 ms
+2019-05-08 09:01:50.824  INFO 10780 --- [ost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-05-08 09:01:50.829  INFO 10780 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-05-08 09:01:50.829  INFO 10780 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-05-08 09:01:50.829  INFO 10780 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2019-05-08 09:01:50.829  INFO 10780 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-05-08 09:01:51.015  INFO 10780 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-05-08 09:01:51.700  INFO 10780 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-05-08 09:01:51.760  INFO 10780 --- [           main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2019-05-08 09:01:51.779  INFO 10780 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-05-08 09:01:51.865  INFO 10780 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.2.16.Final}
+2019-05-08 09:01:51.867  INFO 10780 --- [           main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-05-08 09:01:51.922  INFO 10780 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-05-08 09:01:52.071  INFO 10780 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-05-08 09:01:52.537  INFO 10780 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-05-08 09:01:52.898  INFO 10780 --- [           main] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-05-08 09:01:53.163  INFO 10780 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-05-08 09:01:53.422  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1725dc0f: startup date [Wed May 08 09:01:48 CST 2019]; root of context hierarchy
+2019-05-08 09:01:53.500  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/product/get_company_information]}" onto public java.util.List<com.mingyuan.summer.domain.CompanyInformation> com.mingyuan.summer.controller.ProductInfoController.get_company_information()
+2019-05-08 09:01:53.501  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/product/query]}" onto public java.util.List<com.mingyuan.summer.domain.ProductInfo> com.mingyuan.summer.controller.ProductInfoController.query_product()
+2019-05-08 09:01:53.501  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/product/save]}" onto public void com.mingyuan.summer.controller.ProductInfoController.save_product(com.alibaba.fastjson.JSONObject)
+2019-05-08 09:01:53.502  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/product/insert_order]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.mingyuan.summer.controller.ProductInfoController.insert_order(com.alibaba.fastjson.JSONObject) throws java.lang.Exception
+2019-05-08 09:01:53.502  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/product/downloadPDF]}" onto public java.lang.String com.mingyuan.summer.controller.ProductInfoController.downloadFile(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-05-08 09:01:53.503  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/post2]}" onto public void com.mingyuan.summer.controller.TestController.test_post2(com.alibaba.fastjson.JSONObject)
+2019-05-08 09:01:53.503  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/post3]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.mingyuan.summer.controller.TestController.test_post3(com.alibaba.fastjson.JSONObject)
+2019-05-08 09:01:53.503  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/post1]}" onto public void com.mingyuan.summer.controller.TestController.test_post1()
+2019-05-08 09:01:53.504  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/test_config]}" onto public void com.mingyuan.summer.controller.TestController.test_config()
+2019-05-08 09:01:53.504  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/get]}" onto public void com.mingyuan.summer.controller.TestController.test_get()
+2019-05-08 09:01:53.505  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/login/getInfo]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.mingyuan.summer.controller.UserInfoController.getInfo(com.alibaba.fastjson.JSONObject)
+2019-05-08 09:01:53.505  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/login/getUser]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.mingyuan.summer.controller.UserInfoController.getOne(com.alibaba.fastjson.JSONObject)
+2019-05-08 09:01:53.505  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/login/saveInfo]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.mingyuan.summer.controller.UserInfoController.saveInfo(com.alibaba.fastjson.JSONObject)
+2019-05-08 09:01:53.507  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2019-05-08 09:01:53.507  INFO 10780 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-05-08 09:01:53.532  INFO 10780 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-05-08 09:01:53.533  INFO 10780 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-05-08 09:01:53.574  INFO 10780 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2019-05-08 09:01:54.378  INFO 10780 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2019-05-08 09:01:54.379  INFO 10780 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2019-05-08 09:01:54.383  INFO 10780 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2019-05-08 09:01:54.413  INFO 10780 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2019-05-08 09:01:54.416  INFO 10780 --- [           main] com.mingyuan.summer.SummerApplication    : Started SummerApplication in 6.243 seconds (JVM running for 6.739)
